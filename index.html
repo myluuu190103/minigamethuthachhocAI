@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tạo Sinh | Khóa Học Đột Phá 2025</title>
+    <style>
+        /* === BIẾN TOÀN CỤC === */
+        :root {
+            /* Gradient chính */
+            --gradient-primary: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-hover: linear-gradient(120deg, #5a01ab 0%, #1565ec 100%);
+            
+            /* Màu sắc */
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #00f2fe;
+            --dark: #111827;
+            --gray-dark: #374151;
+            --gray: #6b7280;
+            --gray-light: #e5e7eb;
+            --light: #f9fafb;
+            --white: #ffffff;
+            
+            /* Độ sâu */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            
+            /* Animation */
+            --transition: all 0.3s ease;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing: 1.5rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 5rem;
+            
+            /* Border */
+            --radius-sm: 0.25rem;
+            --radius: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-full: 9999px;
+        }
+        
+        /* === RESET & BASE === */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--light);
+        }
+        
+        body {
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--gray-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius);
+        }
+        
+        /* === TYPOGRAPHY === */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing);
+            color: var(--dark);
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+        
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -0.5rem;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+        }
+        
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+        }
+        
+        p {
+            margin-bottom: var(--spacing);
+        }
+        
+        strong {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* === LAYOUT === */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing);
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+        
+        .col {
+            flex: 1;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: var(--spacing-xl) 0;
+            position: relative;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .grid {
+            display: grid;
+            gap: var(--spacing);
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+        }
+        
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+        }
+        
+        /* === HEADER & NAVIGATION === */
+        header {
+            position: relative;
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--spacing-xl) 0;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            transition: var(--transition);
+            padding: var(--spacing-sm) 0;
+            background: transparent;
+        }
+        
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            padding: 0.7rem 0;
+        }
+        
+        nav.scrolled .nav-link {
+            color: var(--dark);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav.scrolled .logo {
+            color: var(--primary);
+        }
+        
+        .logo span {
+            background: var(--white);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        nav.scrolled .logo span {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing);
+        }
+        
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* === HERO SECTION === */
+        .hero {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing);
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .btn-download {
+            background: #34A853;
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .btn-download:hover {
+            background: #2d9249;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--white);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* === BACKGROUND ELEMENTS === */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .bg-circle-1 {
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .bg-circle-2 {
+            bottom: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        
+        .bg-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 1;
+        }
+        
+        /* === CARDS & CONTENT === */
+        .card {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            transition: var(--transition);
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .feature-card {
+            border-top: 5px solid transparent;
+            border-image: var(--gradient-primary);
+            border-image-slice: 1;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius);
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing);
+            position: relative;
+            color: var(--primary);
+        }
+        
+        .card-icon::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: var(--gradient-primary);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        /* === MODULE SECTION === */
+        .module {
+            position: relative;
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .module-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light);
+            clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+            z-index: -1;
+        }
+        
+        .module-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .module-number {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            font-weight: 800;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .module-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .module-title {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .module-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary);
+        }
+        
+        .check-list {
+            list-style: none;
+            margin-top: var(--spacing);
+        }
+        
+        .check-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .check-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        /* === CHALLENGES SECTION === */
+        .challenges {
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .challenge-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .challenge-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .challenge-number {
+            width: 35px;
+            height: 35px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: var(--spacing-sm);
+            flex-shrink: 0;
+        }
+        
+        .challenge-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .solution {
+            margin-top: var(--spacing);
+            background-color: var(--light);
+            padding: var(--spacing);
+            border-radius: var(--radius);
+            position: relative;
+        }
+        
+        .solution::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid var(--light);
+        }
+        
+        .solution-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .solution-icon {
+            margin-right: var(--spacing-sm);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .solution-title {
+            font-weight: 600;
+        }
+        
+        /* === BENEFICIARY SECTION === */
+        .beneficiary {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .beneficiary-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light);
+            clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 80%);
+            z-index: -1;
+        }
+        
+        .beneficiary-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .beneficiary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .beneficiary-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: var(--spacing);
+            color: var(--primary);
+        }
+        
+        .beneficiary-title {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        /* === TESTIMONIAL SECTION === */
+        .testimonials {
+            background: var(--gradient-primary);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-shape {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 0;
+        }
+        
+        .shape-1 {
+            top: -150px;
+            right: -150px;
+        }
+        
+        .shape-2 {
+            bottom: -150px;
+            left: -150px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: var(--spacing);
+            position: relative;
+        }
+        
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 2rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            background: var(--light);
+            margin-right: var(--spacing-sm);
+            overflow: hidden;
+        }
+        
+        /* === CTA SECTION === */
+        .cta {
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-md);
+        }
+        
+        .cta-description {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-md);
+            font-size: 1.2rem;
+        }
+        
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-cta:hover {
+            background: var(--gradient-hover);
+            transform: translateY(-3px);
+        }
+        
+        /* === FOOTER === */
+        footer {
+            background-color: var(--dark);
+            color: var(--gray-light);
+            padding: var(--spacing-lg) 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: var(--spacing);
+            display: inline-block;
+        }
+        
+        .footer-links h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing);
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background: var(--gradient-primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* === RESPONSIVE === */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                text-align: center;
+            }
+            
+            .hero {
+                margin: 0 auto;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .module-card {
+                margin-bottom: var(--spacing);
+            }
+            
+            section {
+                padding: var(--spacing-lg) 0;
+            }
+        }
+        
+        /* === ANIMATION === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        
+        .animate-delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .animate-delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .animate-delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        .animate-delay-4 {
+            animation-delay: 0.8s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo"><span>AI</span>MINIGAME: THỬ THÁCH HỌC AI</a>
+            <ul class="nav-links">
+                <li><a href="#overview" class="nav-link">Tổng Quan</a></li>
+                <li><a href="#modules" class="nav-link">Nội Dung</a></li>
+                <li><a href="#why" class="nav-link">Tại Sao Học?</a></li>
+                <li><a href="#challenges" class="nav-link">Thách Thức</a></li>
+                <li><a href="#who" class="nav-link">Đối Tượng</a></li>
+                <li><a href="#signup" class="nav-link">Đăng Ký</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header id="home">
+        <div class="bg-circle bg-circle-1"></div>
+        <div class="bg-circle bg-circle-2"></div>
+        <div class="bg-dots"></div>
+        
+        <div class="container header-content">
+            <div class="hero animate">
+                <!-- <h1>Video được thực hành ứng dụng và sử dụng tư liệu từ khóa học của NVIDIA <br>Với AI Tạo Sinh</h1> -->
+               
+                <!-- Video Demo -->
+                <div class="video-container" style="margin: var(--spacing-md) 0; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg);">
+                    <iframe 
+                        width="100%" 
+                        height="400" 
+                        src="https://www.youtube.com/embed/3-yq5ty90CQ?rel=0&controls=1&autoplay=0&mute=0&loop=0" 
+                        title="Video Giới Thiệu Khóa Học AI Tạo Sinh" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="#signup" class="btn btn-primary">Đăng Ký Ngay <span>→</span></a>
+                    <a href="#overview" class="btn btn-outline">Tìm Hiểu Thêm</a>
+                    <a href="https://docs.google.com/document/d/12IwyJc8x2IIUh3TLac5uq19DxEsEDSrCqIQaRf-yPlo/edit?usp=sharing" target="_blank" class="btn btn-download" style="background-color: #34A853; color: white; display: inline-flex; align-items: center; margin-top: 10px;">
+                        <span style="margin-right: 8px;">📄</span> Tải Xuống Tài Liệu
+                    </a>
+                </div>
+            </div>
+            <a href="#overview" class="scroll-down">↓</a>
+        </div>
+    </header>
+
+    <!-- Overview Section -->
+    <section id="overview" class="overview">
+        <div class="container">
+            <h2 class="text-center">Tổng Quan Về Khóa Học</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto var(--spacing-lg);">Khóa học "AI Tạo Sinh" được thiết kế dành cho những người muốn hiểu về <strong>cách AI tạo nội dung</strong>, từ văn bản, hình ảnh, âm thanh đến video và thậm chí cả mô hình 3D.</p>
+            
+            <div class="text-center" style="margin-bottom: var(--spacing-md);">
+                <a href="https://docs.google.com/document/d/12IwyJc8x2IIUh3TLac5uq19DxEsEDSrCqIQaRf-yPlo/edit?usp=sharing" target="_blank" class="btn btn-download" style="max-width: 300px; margin: 0 auto;">
+                    <span style="margin-right: 8px;">📄</span> Tải Xuống Tài Liệu Đầy Đủ
+                </a>
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="card animate animate-delay-1">
+                    <p>Bạn không cần phải là một chuyên gia lập trình hay khoa học dữ liệu để tham gia, vì khóa học được trình bày theo cách <strong>dễ hiểu, trực quan</strong>, với nhiều ví dụ thực tế.</p>
+                    <p>Trong thời đại mà AI đang định hình lại tương lai của công việc và sáng tạo, hiểu biết về AI tạo sinh không còn là lựa chọn mà là điều cần thiết để duy trì tính cạnh tranh trong bất kỳ ngành nghề nào.</p>
+                    <p>Khóa học này là cánh cửa đầu tiên giúp bạn bước vào thế giới AI tạo sinh, mang đến cái nhìn toàn diện từ lý thuyết đến thực hành, đồng thời trang bị cho bạn kỹ năng cần thiết để ứng dụng công nghệ này vào công việc thực tế.</p>
+                </div>
+                
+                <!-- <div class="animate animate-delay-2">
+                    <img src="/api/placeholder/600/400" alt="AI Tạo Sinh Tổng Quan" />
+                </div> -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modules Section -->
+    <section id="modules" class="module">
+        <div class="module-bg"></div>
+        <div class="container">
+            <h2 class="text-center">Nội Dung Chính</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto var(--spacing-lg);">Khóa học được chia thành bốn phần chính, mỗi phần đều đi sâu vào một khía cạnh quan trọng của AI tạo sinh</p>
+            
+            <div class="grid grid-2">
+                <div class="module-card animate animate-delay-1">
+                    <div class="module-number">1</div>
+                    <div class="module-content">
+                        <div class="module-icon">📚</div>
+                        <h3 class="module-title">Định Nghĩa và Cách Hoạt Động</h3>
+                        <p>Hiểu cơ bản về AI tạo sinh, nền tảng kỹ thuật và cách nó hoạt động. Phần này trang bị cho bạn nền tảng vững chắc để hiểu các phần tiếp theo.</p>
+                        <ul class="check-list">
+                            <li>Hiểu AI tạo sinh là gì và cách nó hoạt động</li>
+                            <li>Sự khác biệt giữa AI truyền thống và AI tạo sinh</li>
+                            <li>Tại sao AI tạo sinh đang trở thành xu hướng</li>
+                            <li>Lịch sử phát triển và các mốc quan trọng</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module-card animate animate-delay-2">
+                    <div class="module-number">2</div>
+                    <div class="module-content">
+                        <div class="module-icon">💬</div>
+                        <h3 class="module-title">Ứng Dụng Ngôn Ngữ</h3>
+                        <p>Khám phá cách AI có thể hiểu và tạo ra ngôn ngữ tự nhiên, một trong những ứng dụng phổ biến nhất của AI tạo sinh hiện nay.</p>
+                        <ul class="check-list">
+                            <li>AI có thể <strong>hiểu và tạo văn bản</strong> như thế nào?</li>
+                            <li>Các mô hình ngôn ngữ lớn (LLMs) hoạt động ra sao?</li>
+                            <li>ChatGPT, InstructGPT, và sự phát triển của OpenAI</li>
+                            <li>Ứng dụng thực tế trong viết content, hỗ trợ sáng tạo</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module-card animate animate-delay-3">
+                    <div class="module-number">3</div>
+                    <div class="module-content">
+                        <div class="module-icon">🎨</div>
+                        <h3 class="module-title">Ứng Dụng Hình Ảnh, Âm Thanh & Video</h3>
+                        <p>Tìm hiểu cách AI tạo sinh đang cách mạng hóa việc sáng tạo nội dung đa phương tiện, từ hình ảnh đến âm thanh và video.</p>
+                        <ul class="check-list">
+                            <li>Công nghệ <strong>Text-to-Image</strong> như Stable Diffusion, Midjourney, DALL·E</li>
+                            <li>Cách AI tổng hợp giọng nói và tạo âm thanh sống động</li>
+                            <li>AI trong video, deepfake, và mô hình 3D</li>
+                            <li>Hướng dẫn thực hành sử dụng các công cụ phổ biến</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module-card animate animate-delay-4">
+                    <div class="module-number">4</div>
+                    <div class="module-content">
+                        <div class="module-icon">⚖️</div>
+                        <h3 class="module-title">Thách Thức & Cơ Hội</h3>
+                        <p>Đánh giá những thách thức đạo đức và xã hội của AI tạo sinh, đồng thời khám phá những cơ hội mà nó mang lại.</p>
+                        <ul class="check-list">
+                            <li>Những rủi ro của AI tạo sinh: <strong>thiên vị dữ liệu, đạo đức AI, kiểm soát nội dung</strong></li>
+                            <li>Tương lai của AI và tác động đến nền kinh tế hậu khan hiếm</li>
+                            <li>Cách ứng dụng AI tạo sinh một cách có trách nhiệm</li>
+                            <li>Xu hướng phát triển và cơ hội nghề nghiệp</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Why Important Section -->
+    <section id="why" class="why-important">
+        <div class="container">
+            <h2>Vì Sao AI Tạo Sinh Lại Quan Trọng?</h2>
+            <div class="grid grid-2">
+                <div class="animate animate-delay-1">
+                    <p>Chỉ trong vòng một vài năm, AI tạo sinh đã <strong>định hình lại</strong> nhiều ngành công nghiệp. Từ việc hỗ trợ <strong>viết nội dung, thiết kế hình ảnh</strong>, đến <strong>tự động hóa sáng tạo</strong> trong marketing, quảng cáo, sản xuất nội dung số.</p>
+                    
+                    <div style="background: var(--light); padding: var(--spacing); border-radius: var(--radius); margin: var(--spacing) 0;">
+                        <h3>Một số ví dụ điển hình:</h3>
+                        <ul class="check-list">
+                            <li><strong>ChatGPT:</strong> Trở thành công cụ viết lách, hỗ trợ học tập và nghiên cứu.</li>
+                            <li><strong>Stable Diffusion & Midjourney:</strong> Tạo hình ảnh chất lượng cao từ văn bản.</li>
+                            <li><strong>Deepfake:</strong> Dù gây tranh cãi nhưng mở ra tiềm năng lớn trong ngành điện ảnh, truyền thông.</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>AI tạo sinh không chỉ giúp tăng hiệu suất làm việc mà còn thay đổi cách chúng ta sáng tạo nội dung.</strong> Trong tương lai, kỹ năng sử dụng AI tạo sinh sẽ trở thành yêu cầu cơ bản trong nhiều ngành nghề.</p>
+                </div>
+                
+                <!-- <div class="animate animate-delay-2">
+                    <img src="/api/placeholder/600/400" alt="AI Tạo Sinh Ứng Dụng" style="width: 100%;" />
+                </div> -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Differences Section -->
+    <section class="differences" style="background-color: var(--light);">
+        <div class="container">
+            <h2 class="text-center">Điều Gì Khiến Khóa Học Này Khác Biệt?</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto var(--spacing-lg);">Khóa học không chỉ dừng lại ở <strong>lý thuyết</strong>, mà còn đi sâu vào <strong>ứng dụng thực tế</strong>. Bạn sẽ không cảm thấy bị "ngợp" với quá nhiều thuật ngữ kỹ thuật.</p>
+            
+            <div class="grid grid-4">
+                <div class="feature-card card animate animate-delay-1">
+                    <div class="card-icon">📊</div>
+                    <h3>Phân Tích Xu Hướng AI</h3>
+                    <p>Hiểu rõ tại sao AI tạo sinh bùng nổ vào thời điểm này và định hướng phát triển trong tương lai.</p>
+                </div>
+                
+                <div class="feature-card card animate animate-delay-2">
+                    <div class="card-icon">🔍</div>
+                    <h3>Ví Dụ Minh Họa Thực Tế</h3>
+                    <p>Học thông qua các ví dụ từ ChatGPT, DALL·E, Stable Diffusion đến công cụ AI của Google, Meta, Microsoft.</p>
+                </div>
+                
+                <div class="feature-card card animate animate-delay-3">
+                    <div class="card-icon">🤔</div>
+                    <h3>Thảo Luận Đạo Đức AI</h3>
+                    <p>Phân tích những rủi ro tiềm ẩn và cách kiểm soát AI tạo sinh một cách có trách nhiệm.</p>
+                </div>
+                
+                <div class="feature-card card animate animate-delay-4">
+                    <div class="card-icon">💼</div>
+                    <h3>Cơ Hội Nghề Nghiệp</h3>
+                    <p>Khám phá cách ứng dụng AI vào các lĩnh vực như marketing, content creation, lập trình, thiết kế.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Challenges Section -->
+    <section id="challenges" class="challenges">
+        <div class="container">
+            <h2>Những Thách Thức Khi Triển Khai AI Tạo Sinh</h2>
+            <p style="max-width: 700px; margin-bottom: var(--spacing-lg);">AI tạo sinh đang phát triển mạnh mẽ, nhưng vẫn tồn tại nhiều <strong>thách thức lớn</strong> mà người dùng cần nhận thức rõ:</p>
+            
+            <div class="animate animate-delay-1">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-number">1</div>
+                        <div class="challenge-title">Tính Chính Xác (Accuracy)</div>
+                    </div>
+                    <p>Mô hình AI thường <strong>rất tự tin</strong>, nhưng không phải lúc nào cũng đúng. Ví dụ, <strong>ChatGPT có thể tạo ra câu trả lời nghe có vẻ hợp lý nhưng không chính xác về mặt dữ kiện</strong>.</p>
+                    
+                    <div class="solution">
+                        <div class="solution-header">
+                            <div class="solution-icon">👉</div>
+                            <div class="solution-title">Giải pháp:</div>
+                        </div>
+                        <p>Nghiên cứu thêm về <strong>cách kiểm chứng thông tin</strong> và sử dụng AI như một công cụ hỗ trợ, không phải nguồn tin tuyệt đối. Khóa học sẽ giới thiệu các phương pháp để xác minh thông tin từ AI.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="animate animate-delay-2">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-number">2</div>
+                        <div class="challenge-title">Vấn Đề Sở Hữu Trí Tuệ (IP Ownership)</div>
+                    </div>
+                    <p>AI có thể tạo ra nội dung dựa trên dữ liệu đã được huấn luyện, nhưng ai thực sự sở hữu những nội dung này? Một số nghệ sĩ đã kiện các công ty AI vì sử dụng tác phẩm của họ mà không có sự cho phép.</p>
+                    
+                    <div class="solution">
+                        <div class="solution-header">
+                            <div class="solution-icon">👉</div>
+                            <div class="solution-title">Giải pháp:</div>
+                        </div>
+                        <p>Các công ty AI đang phát triển công cụ để kiểm soát tốt hơn vấn đề bản quyền và tôn trọng quyền sở hữu trí tuệ. Trong khóa học, bạn sẽ học cách sử dụng AI tuân thủ các quy định về bản quyền.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="animate animate-delay-3">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-number">3</div>
+                        <div class="challenge-title">Đạo Đức & Kiểm Soát (Ethics & Guardrails)</div>
+                    </div>
+                    <p>Một số nội dung do AI tạo ra có thể mang tính phân biệt đối xử hoặc không phù hợp. Điều này đặt ra câu hỏi: <strong>AI có nên được kiểm duyệt không? Và ai sẽ kiểm duyệt nó?</strong></p>
+                    
+                    <div class="solution">
+                        <div class="solution-header">
+                            <div class="solution-icon">👉</div>
+                            <div class="solution-title">Giải pháp:</div>
+                        </div>
+                        <p>Các công ty đang nghiên cứu về <strong>Prompt Engineering</strong> (kỹ thuật tạo lời nhắc) và cơ chế giám sát AI để kiểm soát tốt hơn những nội dung mà AI tạo ra. Khóa học sẽ giới thiệu các phương pháp tạo prompt hiệu quả và an toàn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Future Economy Section -->
+    <section class="future-economy" style="background: var(--gradient-primary); color: var(--white);">
+        <div class="container">
+            <h2 class="text-center" style="color: var(--white);">AI Tạo Sinh và Tương Lai Kinh Tế Hậu Khan Hiếm</h2>
+            
+            <div class="grid grid-2">
+                <div class="animate animate-delay-1">
+                    <p>Một khái niệm thú vị được thảo luận trong khóa học là <strong>"Nền kinh tế hậu khan hiếm"</strong>.</p>
+                    
+                    <p>Trước đây, nội dung số (bài viết, hình ảnh, video) đòi hỏi nhiều công sức để tạo ra. Nhưng với AI tạo sinh, <strong>bất kỳ ai cũng có thể tạo ra nội dung một cách nhanh chóng</strong>.</p>
+                    
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing); border-radius: var(--radius); margin: var(--spacing) 0;">
+                        <h3 style="color: var(--white);">Điều này dẫn đến sự thay đổi lớn:</h3>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="margin-bottom: 10px; position: relative; padding-left: 30px;">
+                                <span style="position: absolute; left: 0; color: var(--accent);">✓</span>
+                                <strong>Không còn chạy theo số lượng nội dung</strong>, mà tập trung vào <strong>chất lượng & ý tưởng sáng tạo</strong>.
+                            </li>
+                            <li style="margin-bottom: 10px; position: relative; padding-left: 30px;">
+                                <span style="position: absolute; left: 0; color: var(--accent);">✓</span>
+                                <strong>AI giúp tăng tốc độ làm việc</strong>, nhưng con người vẫn giữ vai trò định hướng sáng tạo.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- <div class="animate animate-delay-2">
+                    <img src="/api/placeholder/600/400" alt="Tương lai của AI Tạo Sinh" style="border-radius: var(--radius); box-shadow: var(--shadow-lg);" />
+                </div> -->
+            </div>
+            
+            <div class="text-center animate animate-delay-3" style="margin-top: var(--spacing-lg);">
+                <p style="font-size: 1.3rem; max-width: 700px; margin: 0 auto;">Điều này mở ra <strong>nhiều cơ hội nghề nghiệp mới</strong>, đặc biệt là trong lĩnh vực sáng tạo nội dung và lập trình.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Who is it for Section -->
+    <section id="who" class="beneficiary">
+        <div class="beneficiary-bg"></div>
+        <div class="container">
+            <h2 class="text-center">Khóa Học Này Phù Hợp Với Ai?</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto var(--spacing-lg);">Khóa học được thiết kế phù hợp với nhiều đối tượng khác nhau, từ người mới bắt đầu đến chuyên gia.</p>
+            
+            <div class="grid grid-4">
+                <div class="beneficiary-card animate animate-delay-1">
+                    <div class="beneficiary-icon">🔰</div>
+                    <h3 class="beneficiary-title">Người Mới</h3>
+                    <p>Không yêu cầu kiến thức lập trình sâu, phù hợp với người mới tìm hiểu về AI.</p>
+                </div>
+                
+                <div class="beneficiary-card animate animate-delay-2">
+                    <div class="beneficiary-icon">💻</div>
+                    <h3 class="beneficiary-title">Chuyên Gia Công Nghệ</h3>
+                    <p>Muốn cập nhật xu hướng AI mới nhất và tích hợp vào công việc hiện tại.</p>
+                </div>
+                
+                <div class="beneficiary-card animate animate-delay-3">
+                    <div class="beneficiary-icon">📱</div>
+                    <h3 class="beneficiary-title">Marketers & Nhà Sáng Tạo</h3>
+                    <p>Tìm cách ứng dụng AI để nâng cao hiệu suất trong marketing và sáng tạo nội dung.</p>
+                </div>
+                
+                <div class="beneficiary-card animate animate-delay-4">
+                    <div class="beneficiary-icon">🏢</div>
+                    <h3 class="beneficiary-title">Doanh Nghiệp & Startup</h3>
+                    <p>Muốn tận dụng AI tạo sinh để đổi mới mô hình kinh doanh và tăng năng suất.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="testimonial-shape shape-1"></div>
+        <div class="testimonial-shape shape-2"></div>
+        
+        <div class="container">
+            <h2 class="text-center" style="color: var(--white);">Người Học Nói Gì?</h2>
+            
+            <div class="grid grid-3" style="margin-top: var(--spacing-lg);">
+                <div class="testimonial-card animate animate-delay-1">
+                    <div class="testimonial-text">
+                        Khóa học đã giúp tôi hiểu rõ về AI tạo sinh một cách dễ dàng mà không cần kiến thức chuyên sâu về lập trình. Giờ đây tôi đã áp dụng thành công vào công việc marketing hàng ngày.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="/api/placeholder/50/50" alt="Nguyễn Thị Minh" />
+                        </div>
+                        <div>
+                            <strong>Nguyễn Thị Minh</strong><br>
+                            <small>Marketing Manager</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate animate-delay-2">
+                    <div class="testimonial-text">
+                        Là một lập trình viên, tôi đánh giá cao cách khóa học giải thích kỹ thuật phía sau AI tạo sinh. Nội dung có chiều sâu nhưng vẫn dễ hiểu, giúp tôi áp dụng vào dự án thực tế.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="/api/placeholder/50/50" alt="Trần Văn Nam" />
+                        </div>
+                        <div>
+                            <strong>Trần Văn Nam</strong><br>
+                            <small>Senior Developer</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate animate-delay-3">
+                    <div class="testimonial-text">
+                        Khóa học đã mở ra một thế giới mới về khả năng sáng tạo nội dung. Tôi đặc biệt thích phần thực hành với các công cụ AI tạo hình ảnh, giúp công việc thiết kế của tôi hiệu quả hơn rất nhiều.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="/api/placeholder/50/50" alt="Lê Hoàng Anh" />
+                        </div>
+                        <div>
+                            <strong>Lê Hoàng Anh</strong><br>
+                            <small>Graphic Designer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section id="signup" class="cta">
+        <div class="container">
+            <h2 class="cta-title">AI Tạo Sinh Không Chỉ Là Công Nghệ, Mà Là Cuộc Cách Mạng</h2>
+            <p class="cta-description">Khóa học này không chỉ mang đến cái nhìn tổng quan về AI tạo sinh mà còn giúp bạn hiểu rõ cách nó đang thay đổi thế giới.</p>
+            
+            <a href="https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-07+V1" class="btn-cta animate animate-delay-1">Đăng Ký Khóa Học Ngay Hôm Nay! 🚀</a>
+        </div>
+    </section>
+    
+   
+    
+    <script>
+        // Sticky navigation on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
